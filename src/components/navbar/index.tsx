@@ -8,21 +8,46 @@ import {
 const Navbar = () => {
   return (
     <NavigationMenu viewport={false} orientation="horizontal">
-      <NavigationMenuList className="text-sm text-muted-foreground">
+      <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuLink href="/">home</NavigationMenuLink>
+          <NavigationMenuLink
+            className="sm:text-base! md:text-xl! text-muted-foreground"
+            href="/"
+          >
+            home
+          </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuLink href="#skills">skills</NavigationMenuLink>
+          <NavigationMenuLink
+            className="sm:text-base! md:text-xl! text-muted-foreground"
+            href="#skills"
+          >
+            skills
+          </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuLink href="#works">works</NavigationMenuLink>
+          <NavigationMenuLink
+            className="sm:text-base! md:text-xl! text-muted-foreground"
+            href="#works"
+          >
+            works
+          </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuLink href="#experience">experience</NavigationMenuLink>
+          <NavigationMenuLink
+            className="sm:text-base! md:text-xl! text-muted-foreground"
+            href="#experience"
+          >
+            experience
+          </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuLink href="#contact">contact</NavigationMenuLink>
+          <NavigationMenuLink
+            className="sm:text-base! md:text-xl! text-muted-foreground"
+            href="#contact"
+          >
+            contact
+          </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>

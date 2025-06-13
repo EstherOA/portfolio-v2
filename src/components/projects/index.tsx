@@ -23,8 +23,8 @@ const Projects = () => {
   const isMobile = useIsMobile();
 
   return (
-    <div className="bg-white pt-5 pb-10 px-5">
-      <h3 className="text-base font-semibold tracking-normal mb-4 pt-4">
+    <div id="works" className="bg-white pt-5 pb-10 px-5">
+      <h3 className="sm:text-center sm:text-xl text-base font-semibold tracking-normal mb-4 pt-4">
         Latest Projects
       </h3>
       {isMobile ? (
@@ -32,7 +32,7 @@ const Projects = () => {
           <MobileContainer />
         </div>
       ) : (
-        <div className="h-[550px]">
+        <div className="min-h-[500px] h-[550px] sm:max-w-2/3 sm:m-auto">
           <Canvas camera={{ position: [0, 50, 100], fov: 13 }}>
             <fog attach="fog" args={["#a79", 8.5, 12]} />
             <ScrollControls pages={4} infinite>
@@ -119,6 +119,7 @@ function Rig(props: JSX.IntrinsicElements["group"]) {
 function Carousel({ radius = 1.4, count = 6 }) {
   return projectList.map((proj, i) => (
     <Card
+      onClick={() => window.open(proj.demo, "blank")}
       key={i}
       url={proj.img}
       position={[

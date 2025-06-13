@@ -1,4 +1,9 @@
 import WalletWebsite from "../../assets/wallet-website.png";
+import RentHelper from "../../assets/renthelper.png";
+import CareInTouch from "../../assets/care-in-touch.png";
+import Betika from "../../assets/betika.png";
+import NCA from "../../assets/nca.png";
+import BitfinityWallet from "../../assets/bitfinity-wallet-ext2.png";
 
 export type ProjectType = {
   title: string;
@@ -10,46 +15,46 @@ export type ProjectType = {
 
 const projectList: ProjectType[] = [
   {
-    title: "Wallet Extension",
+    title: "Bitfinity Wallet Website",
     description: "",
     img: WalletWebsite,
-    demo: "",
-    repo: "",
+    demo: "https://wallet.bitfinity.network/",
+    repo: "#",
   },
   {
-    title: "Wallet Extension",
+    title: "Bitfinity Wallet Extension",
     description: "",
-    img: WalletWebsite,
-    demo: "",
-    repo: "",
+    img: BitfinityWallet,
+    demo: "https://chromewebstore.google.com/detail/bitfinity-wallet/jnldfbidonfeldmalbflbmlebbipcnle?pli=1",
+    repo: "#",
   },
   {
-    title: "Wallet Extension",
+    title: "Betika",
     description: "",
-    img: WalletWebsite,
-    demo: "",
-    repo: "",
+    img: Betika,
+    demo: "https://www.betika.com/en-ke/",
+    repo: "#",
   },
   {
-    title: "Wallet Extension",
+    title: "NCA Website",
     description: "",
-    img: WalletWebsite,
-    demo: "",
-    repo: "",
+    img: NCA,
+    demo: "https://nca.org.gh/",
+    repo: "#",
   },
   {
-    title: "Wallet Extension",
+    title: "Care In Touch App",
     description: "",
-    img: WalletWebsite,
-    demo: "",
-    repo: "",
+    img: CareInTouch,
+    demo: "https://play.google.com/store/apps/details?id=com.careintouch&hl=en",
+    repo: "#",
   },
   {
-    title: "Wallet Extension",
+    title: "Rent Helper",
     description: "",
-    img: WalletWebsite,
-    demo: "",
-    repo: "",
+    img: RentHelper,
+    demo: "https://renthelper.co.uk/",
+    repo: "#",
   },
 ];
 

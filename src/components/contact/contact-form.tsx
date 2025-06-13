@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -52,10 +53,22 @@ const ContactForm = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const res = await fetch(
+      "https://formsubmit.co/e39be429f05d098bfd79ad9d3f912595",
+      {
+        body: JSON.stringify(values),
+        method: "POST",
+      }
+    );
+
+    if (res.ok) {
+      toast.success("Got your message!", {
+        description: "I will reply shortly",
+        position: "bottom-right",
+      });
+      form.reset();
+    }
   }
 
   return (

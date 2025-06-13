@@ -1,12 +1,50 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import ContactForm from "./contact-form";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { HandMetal } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Contact = () => {
+  const titleRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    const title = titleRef.current;
+    if (!title) return;
+
+    gsap.fromTo(
+      title,
+      {
+        scale: 0.25,
+        opacity: 0,
+      },
+      {
+        scale: 1,
+        opacity: 1,
+        duration: 2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: title,
+          start: "top bottom-=100",
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+  }, []);
+
   return (
-    <div className="py-10 px-4">
+    <div id="contact" className="py-10 px-4">
       <Card className="sm:max-w-3/5 m-auto">
         <CardHeader>
-          <CardTitle className="sm:text-center">Say Hi!</CardTitle>
+          <CardTitle
+            ref={titleRef}
+            className="sm:text-center sm:text-xl flex flex-row justify-center items-center"
+          >
+            Say Hi!
+            <HandMetal fill="orange" />
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <ContactForm />

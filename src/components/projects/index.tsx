@@ -7,8 +7,15 @@ import {
   type ImageProps,
 } from "@react-three/drei";
 import { easing } from "maath";
-import { useRef, useState, type JSX } from "react";
-import projectList from "./latest-works";
+import {
+  useRef,
+  useState,
+  type JSX,
+  type SetStateAction,
+  type Dispatch,
+  forwardRef,
+} from "react";
+import projectList, { type ProjectType } from "./latest-works";
 import BentPlaneGeometry from "./bent-plane-geometry";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Card as ShadcnCard, CardContent, CardDescription } from "../ui/card";
@@ -21,27 +28,36 @@ type CardProps = ImageProps & { url: string };
 
 const Projects = () => {
   const isMobile = useIsMobile();
+  const [showCard, setShowCard] = useState<ProjectType | null>();
 
   return (
     <div id="works" className="bg-white pt-5 pb-10 px-5">
       <h3 className="sm:text-center sm:text-xl text-base font-semibold tracking-normal mb-4 pt-4">
-        Latest Projects
+        Featured Works
       </h3>
       {isMobile ? (
         <div className="flex flex-col gap-10">
           <MobileContainer />
         </div>
       ) : (
-        <div className="min-h-[500px] h-[550px] sm:max-w-2/3 sm:m-auto">
+        <div className="relative min-h-[500px] h-[550px] sm:max-w-2/3 sm:m-auto">
           <Canvas camera={{ position: [0, 50, 100], fov: 13 }}>
             <fog attach="fog" args={["#a79", 8.5, 12]} />
             <ScrollControls pages={4} infinite>
               <Rig rotation={[0, 0, 0.15]}>
-                <Carousel />
+                <Carousel setShowCard={setShowCard} radius={1.4} count={6} />
               </Rig>
             </ScrollControls>
-            {/* <Environment preset="dawn" background blur={0.5} /> */}
           </Canvas>
+          {showCard && (
+            <ShadcnCard className="font-semibold absolute right-[-20%] w-[45%] xl:w-[35%] top-10 px-5 bg-[#252525] text-white">
+              {showCard.title}
+              <CardContent>
+                <p>{showCard.description}</p>
+                <p className="font-semibold mt-2">{showCard.year}</p>
+              </CardContent>
+            </ShadcnCard>
+          )}
         </div>
       )}
     </div>
@@ -62,16 +78,14 @@ const MobileContainer = () => {
   ));
 };
 
-function Card({ url, ...props }: CardProps) {
-  const ref = useRef<THREE.Mesh>(null);
-
+const Card = forwardRef<THREE.Mesh, CardProps>(({ url, ...props }, ref) => {
   const [hovered, hover] = useState(false);
   const pointerOver = (e: ThreeEvent<PointerEvent>) => (
     e.stopPropagation(), hover(true)
   );
   const pointerOut = () => hover(false);
   useFrame((_, delta) => {
-    if (!ref.current) return;
+    if (!ref || !("current" in ref) || !ref.current) return;
 
     easing.damp3(ref.current.scale, hovered ? 1.15 : 1, 0.1, delta);
     easing.damp(
@@ -96,7 +110,9 @@ function Card({ url, ...props }: CardProps) {
       <BentPlaneGeometry args={[0.1, 1, 1, 20, 20]} />
     </Image>
   );
-}
+});
+
+Card.displayName = "Card";
 
 function Rig(props: JSX.IntrinsicElements["group"]) {
   const ref = useRef<THREE.Mesh | null>(null);
@@ -116,9 +132,19 @@ function Rig(props: JSX.IntrinsicElements["group"]) {
   return <group ref={ref} {...props} />;
 }
 
-function Carousel({ radius = 1.4, count = 6 }) {
+function Carousel({
+  radius = 1.4,
+  count = 6,
+  setShowCard,
+}: {
+  setShowCard: Dispatch<SetStateAction<ProjectType | null | undefined>>;
+  count: number;
+  radius: number;
+}) {
   return projectList.map((proj, i) => (
     <Card
+      onPointerEnter={() => setShowCard(proj)}
+      onPointerLeave={() => setShowCard(null)}
       onClick={() => window.open(proj.demo, "blank")}
       key={i}
       url={proj.img}

@@ -1,9 +1,11 @@
 import { useEffect, useRef } from "react";
-import { jobList, type JobType } from "./jobs";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Card, CardContent } from "../ui/card";
 import { TrainFront } from "lucide-react";
+import { format } from "date-fns";
+
+import { jobList, type JobType } from "./jobs";
+import { Card, CardContent } from "../ui/card";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -60,7 +62,10 @@ const Job = (job: JobType) => {
           </p>
         </div>
         <p className="font-semibold">
-          {job.dateBegan} - {job.dateEnded ?? "present"}
+          {format(new Date(job.dateBegan), "MMM yyyy")} -{" "}
+          {job.dateEnded
+            ? format(new Date(job.dateEnded), "MMM yyyy")
+            : "present"}
         </p>
         <div className="flex flex-col">
           {job.description.map((jd, i) => (

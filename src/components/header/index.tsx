@@ -1,22 +1,79 @@
+import { gsap } from "gsap";
 import { Button } from "../ui/button";
 import profile from "../../assets/header-img.jpg";
 import headerGraphic from "../../assets/header-graphic.svg";
 import headerGraphic2 from "../../assets/header-graphic2.svg";
 import headerArrow from "../../assets/header-arrow.svg";
 import headerArrow2 from "../../assets/header-arrow2.svg";
+import { useEffect, useRef } from "react";
+
+const roles = ["developer", "artist", "creator"];
 
 const Header = () => {
+  const textRef = useRef<HTMLSpanElement>(null);
+  const cursorRef = useRef<HTMLSpanElement>(null);
+  const wordIndex = useRef(0);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const typeWord = (word: string, onComplete: () => void) => {
+        const tl = gsap.timeline({ onComplete });
+
+        for (let i = 0; i <= word.length; i++) {
+          tl.to(textRef.current, {
+            duration: 0.09,
+            textContent: word.substring(0, i),
+            ease: "none",
+          });
+        }
+
+        tl.to({}, { duration: 1 }); // Pause
+
+        for (let i = word.length; i >= 0; i--) {
+          tl.to(textRef.current, {
+            duration: 0.03,
+            textContent: word.substring(0, i),
+            ease: "none",
+          });
+        }
+
+        return tl;
+      };
+
+      const loop = () => {
+        const currentWord = roles[wordIndex.current];
+        typeWord(currentWord, () => {
+          wordIndex.current = (wordIndex.current + 1) % roles.length;
+          loop();
+        });
+      };
+
+      loop();
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div className="h-screen w-full">
-      <div className="sm:mt-[10em] px-5 justify-end sm:w-2/3 h-[calc(100%-60px)] sm:m-auto flex flex-col-reverse sm:flex-row sm:justify-between sm:gap-20">
-        <div className="flex flex-col">
-          <p className="text-base sm:text-lg font-semibold tracking-normal mb-4 sm:mb-10">
-            Hi, I'm Esther (Amani),
+    <div className="w-full h-[calc(100%-60px)]">
+      <div className="items-center flex flex-col-reverse md:flex-row md:justify-evenly sm:mt-3 md:mt-[10em] mx-10 sm:mx-30 md:mx-0">
+        <div className="flex flex-col w-full md:w-1/3">
+          <p className="text-base sm:text-lg font-semibold tracking-normal mb-4 md:mb-10">
+            Hi, I'm Amani (Esther),
           </p>
-          <p className="text-6xl sm:text-8xl font-extrabold sm:mb-10 tracking-normal">
-            software dev
-          </p>
-          <p className="text-muted-foreground font-medium tracking-tight mt-5">
+          <div className="flex flex-row sm:mb-10 items-end">
+            <span
+              ref={textRef}
+              className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold tracking-normal"
+            ></span>
+            <span
+              ref={cursorRef}
+              className="animate-blink text-5xl sm:text-6xl md:text-7xl xl:text-8xl font-extrabold"
+            >
+              |
+            </span>
+          </div>
+          <p className="text-muted-foreground font-medium tracking-tight md:mt-5">
             I love to create beauty in everything I do
           </p>
           <p className="text-muted-foreground font-medium tracking-tight mt-1 mb-5">
@@ -29,8 +86,8 @@ const Header = () => {
             Let's chat!
           </Button>
         </div>
-        <div className="mt-5 mb-10 sm:my-0">
-          <div className="relative sm:min-w-[500px] flex justify-center">
+        <div className="mt-5 mb-10 w-full md:w-1/3">
+          <div className="relative flex justify-center">
             <img
               alt="profile image graphic"
               className="absolute top-0 sm:top-[20px] sm:right-1 right-0"
@@ -44,7 +101,7 @@ const Header = () => {
             <img
               src={profile}
               alt="profile"
-              className="w-full max-w-[100%] h-auto rounded-t-[25%] shadow-2xl/30"
+              className="w-full object-contain max-w-[100%] h-auto rounded-t-[25%] shadow-2xl/30"
             />
             <img
               alt="profile image graphic"

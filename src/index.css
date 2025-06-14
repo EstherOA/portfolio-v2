@@ -179,8 +179,28 @@ button:hover {
   }
 }
 
+@layer utilities {
+  .shooting-star {
+    @apply absolute w-[3px] h-[50px] rounded-full opacity-80;
+    transform: rotate(-45deg);
+    will-change: transform, opacity;
+    pointer-events: none;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  }
+}
+
+
 canvas {
   cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSIxMCIgZmlsbD0iI0U4QjA1OSIvPjwvc3ZnPg=='),
   auto;
   
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 0.8s step-end infinite;
 }

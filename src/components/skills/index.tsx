@@ -11,7 +11,10 @@ type WordProps = {
 
 const Skills = () => {
   return (
-    <div id="skills" className="w-full bg-[#242424] p-0 m-0 border-box px-5">
+    <div
+      id="skills"
+      className="w-full bg-[#242424] p-0 m-0 border-box px-5 pt-5"
+    >
       <h3 className="sm:text-center text-base sm:text-xl font-semibold tracking-normal mb-4 pt-4 text-white">
         Skills
       </h3>

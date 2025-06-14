@@ -18,7 +18,13 @@ import {
 import projectList, { type ProjectType } from "./latest-works";
 import BentPlaneGeometry from "./bent-plane-geometry";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Card as ShadcnCard, CardContent, CardDescription } from "../ui/card";
+import {
+  Card as ShadcnCard,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -40,7 +46,7 @@ const Projects = () => {
           <MobileContainer />
         </div>
       ) : (
-        <div className="relative min-h-[500px] h-[550px] sm:max-w-2/3 sm:m-auto">
+        <div className="relative min-h-[500px] h-[550px] lg:max-w-2/3 lg:m-auto">
           <Canvas camera={{ position: [0, 50, 100], fov: 13 }}>
             <fog attach="fog" args={["#a79", 8.5, 12]} />
             <ScrollControls pages={4} infinite>
@@ -50,8 +56,10 @@ const Projects = () => {
             </ScrollControls>
           </Canvas>
           {showCard && (
-            <ShadcnCard className="font-semibold absolute right-[-20%] w-[45%] xl:w-[35%] top-10 px-5 bg-[#252525] text-white">
-              {showCard.title}
+            <ShadcnCard className="font-semibold absolute right-10 lg:right-[-20%] w-[45%] xl:w-[35%] top-[-20%] lg:top-10 px-5 bg-[#252525] text-white z-10">
+              <CardHeader>
+                <CardTitle>{showCard.title}</CardTitle>
+              </CardHeader>
               <CardContent>
                 <p>{showCard.description}</p>
                 <p className="font-semibold mt-2">{showCard.year}</p>

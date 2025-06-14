@@ -18,7 +18,7 @@ const Skills = () => {
       <h3 className="sm:text-center text-base sm:text-xl font-semibold tracking-normal mb-4 pt-4 text-white">
         Skills
       </h3>
-      <div className="sm:max-w-2/3 h-[550px] sm:m-auto">
+      <div className="sm:max-w-2/3 lg:max-w-1/2 h-[550px] sm:m-auto">
         <Canvas
           dpr={[1, 2]}
           camera={{ position: [0, 0, 25], fov: 125, near: 0.1, far: 1000 }}

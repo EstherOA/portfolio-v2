@@ -20,7 +20,6 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Card as ShadcnCard,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "../ui/card";
@@ -78,13 +77,17 @@ const Projects = () => {
 const MobileContainer = () => {
   return projectList.slice(0, 4).map((proj, i) => (
     <div className="flex flex-col gap-4">
-      <ShadcnCard key={i} className="p-0 shadow-2xl">
+      <ShadcnCard
+        key={i}
+        className="p-0 shadow-2xl cursor-pointer"
+        onClick={() => window.open(proj.demo, "blank")}
+      >
         <CardContent className="p-0">
           <img src={proj.img} alt={proj.title} className="rounded-xl" />
         </CardContent>
       </ShadcnCard>
       <p className="capitalise text-sm font-semibold">{proj.title}</p>
-      <CardDescription>{proj.description}</CardDescription>
+      <p className="text-muted-foreground">{proj.description}</p>
     </div>
   ));
 };

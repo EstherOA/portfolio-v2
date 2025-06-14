@@ -19,7 +19,7 @@ const Experience = () => {
       gsap.to(card, {
         scrollTrigger: {
           trigger: card,
-          start: "center center",
+          start: "top 20%",
           end: "bottom top",
           scrub: true,
         },

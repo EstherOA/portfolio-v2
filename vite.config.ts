@@ -14,5 +14,22 @@ export default defineConfig({
   },
   build: {
     outDir: "build",
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom"],
+          three: ["three", "@react-three/fiber", "@react-three/drei"],
+          ui: [
+            "@radix-ui/react-slot",
+            "@radix-ui/react-label",
+            "@radix-ui/react-navigation-menu",
+          ],
+        },
+        chunkFileNames: "assets/[name]-[hash].js",
+        entryFileNames: "assets/[name]-[hash].js",
+        assetFileNames: "assets/[name]-[hash].[ext]",
+      },
+    },
+    chunkSizeWarningLimit: 1200,
   },
 });

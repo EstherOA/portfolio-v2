@@ -13,7 +13,6 @@ import {
   type JSX,
   type SetStateAction,
   type Dispatch,
-  forwardRef,
 } from "react";
 import projectList, { type ProjectType } from "./latest-works";
 import BentPlaneGeometry from "./bent-plane-geometry";
@@ -30,7 +29,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type CardProps = ImageProps & { url: string };
+type CardProps = ImageProps & {
+  url: string;
+  onHover: () => void;
+  onEndHover: () => void;
+};
 
 const Projects = () => {
   const isMobile = useIsMobile();
@@ -86,14 +89,22 @@ const MobileContainer = () => {
   ));
 };
 
-const Card = forwardRef<THREE.Mesh, CardProps>(({ url, ...props }, ref) => {
+const Card = ({ url, onHover, onEndHover, ...props }: CardProps) => {
+  const ref = useRef<THREE.Mesh>(null!);
   const [hovered, hover] = useState(false);
-  const pointerOver = (e: ThreeEvent<PointerEvent>) => (
-    e.stopPropagation(), hover(true)
-  );
-  const pointerOut = () => hover(false);
+  const pointerOver = (e: ThreeEvent<PointerEvent>) => {
+    hover(true);
+    onHover();
+    e.stopPropagation();
+  };
+  const pointerOut = () => {
+    onEndHover();
+    hover(false);
+  };
   useFrame((_, delta) => {
-    if (!ref || !("current" in ref) || !ref.current) return;
+    if (!ref.current) {
+      return;
+    }
 
     easing.damp3(ref.current.scale, hovered ? 1.15 : 1, 0.1, delta);
     easing.damp(
@@ -107,6 +118,7 @@ const Card = forwardRef<THREE.Mesh, CardProps>(({ url, ...props }, ref) => {
   });
   return (
     <Image
+      // @ts-expect-error - THREE.Mesh ref type mismatch with Image component
       ref={ref}
       url={url}
       transparent
@@ -118,8 +130,7 @@ const Card = forwardRef<THREE.Mesh, CardProps>(({ url, ...props }, ref) => {
       <BentPlaneGeometry args={[0.1, 1, 1, 20, 20]} />
     </Image>
   );
-});
-
+};
 Card.displayName = "Card";
 
 function Rig(props: JSX.IntrinsicElements["group"]) {
@@ -151,8 +162,8 @@ function Carousel({
 }) {
   return projectList.map((proj, i) => (
     <Card
-      onPointerEnter={() => setShowCard(proj)}
-      onPointerLeave={() => setShowCard(null)}
+      onHover={() => setShowCard(proj)}
+      onEndHover={() => setShowCard(null)}
       onClick={() => window.open(proj.demo, "blank")}
       key={i}
       url={proj.img}

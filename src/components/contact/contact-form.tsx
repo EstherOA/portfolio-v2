@@ -2,6 +2,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast, Toaster } from "sonner";
+import emailjs from "@emailjs/browser";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -12,6 +13,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useRef, useState } from "react";
+import { Loader2Icon } from "lucide-react";
 
 const formSchema = z.object({
   firstname: z
@@ -42,8 +45,11 @@ const formSchema = z.object({
 });
 
 const ContactForm = () => {
+  const [loading, setLoading] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: "onChange",
     defaultValues: {
       firstname: "",
       lastname: "",
@@ -53,28 +59,36 @@ const ContactForm = () => {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    const res = await fetch(
-      "https://formsubmit.co/estherowusuansah19@gmail.com",
-      {
-        body: JSON.stringify(values),
-        method: "POST",
-      }
-    );
-    console.log("res:", res);
+  async function handleSubmit() {
+    const isValid = await form.trigger();
+    if (!isValid || !formRef.current) return;
 
-    if (res.ok) {
-      toast.success("Got your message!", {
-        description: "I will reply shortly :)",
-        position: "bottom-right",
+    setLoading(true);
+    emailjs
+      .sendForm(
+        import.meta.env.VITE_EMAIL_SERVICE_ID as string,
+        import.meta.env.VITE_EMAIL_TEMPLATE_ID as string,
+        formRef.current,
+        import.meta.env.VITE_EMAIL_PUBLIC_KEY as string
+      )
+      .then(() => {
+        toast.success("Got your message!", {
+          description: "I will reply shortly :)",
+          position: "bottom-right",
+        });
+        form.reset();
+      })
+      .catch((e) => {
+        console.error("failed to send message:", e);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-      form.reset();
-    }
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form ref={formRef} className="space-y-8">
         <FormField
           control={form.control}
           name="firstname"
@@ -142,8 +156,11 @@ const ContactForm = () => {
         />
         <Button
           className="w-fit rounded-none! bg-[#2D2D2D] w-[150px] h-[50px]"
-          type="submit"
+          type="button"
+          disabled={loading}
+          onClick={handleSubmit}
         >
+          {loading && <Loader2Icon className="animate-spin" />}
           Submit
         </Button>
       </form>

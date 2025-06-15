@@ -20,8 +20,9 @@ const Experience = () => {
         scrollTrigger: {
           trigger: card,
           start: "top top",
-          end: "+=600",
+          end: "+=1000",
           scrub: 1,
+          markers: true,
         },
         x: 10,
         y: -10,
@@ -29,8 +30,6 @@ const Experience = () => {
         scale: 0.6,
         opacity: 0,
         ease: "sine.out",
-        duration: 5,
-        delay: 1,
       });
     });
   }, []);

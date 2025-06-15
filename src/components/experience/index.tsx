@@ -29,7 +29,7 @@ const Experience = () => {
         scale: 0.6,
         opacity: 0,
         ease: "sine.in",
-        yoyo: true,
+        duration: 5,
       });
     });
   }, []);

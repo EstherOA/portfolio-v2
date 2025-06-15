@@ -81,9 +81,6 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
-  border-color: #646cff;
-}
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -203,4 +200,18 @@ canvas {
 
 .animate-blink {
   animation: blink 0.8s step-end infinite;
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+.animate-wiggle {
+  animation: wiggle 1s ease-in-out infinite;
 }

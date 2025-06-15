@@ -76,9 +76,8 @@ const Projects = () => {
 
 const MobileContainer = () => {
   return projectList.slice(0, 4).map((proj, i) => (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4" key={i}>
       <ShadcnCard
-        key={i}
         className="p-0 shadow-2xl cursor-pointer"
         onClick={() => window.open(proj.demo, "blank")}
       >

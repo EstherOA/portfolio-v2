@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TrainFront } from "lucide-react";
@@ -12,46 +12,28 @@ gsap.registerPlugin(ScrollTrigger);
 const Experience = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Save original styles so GSAP can revert when screen size changes
-  ScrollTrigger.saveStyles(".card");
-
-  const mm = window.matchMedia("(max-width: 767px)");
-
-  function setupAnimation(isMobile: boolean) {
+  useEffect(() => {
     if (!containerRef.current) return;
-
-    // Kill any existing ScrollTriggers
-    ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 
     gsap.utils.toArray<HTMLElement>(".job-card").forEach((card) => {
       gsap.to(card, {
         scrollTrigger: {
           trigger: card,
           start: "top top",
-          end: isMobile
-            ? `+=${card.clientHeight * 0.8}`
-            : `+=${card.clientHeight}`, // More scroll distance on mobile
-          scrub: 2,
+          end: "+=600",
+          scrub: 1,
         },
         x: 10,
         y: -10,
         rotation: 15,
         scale: 0.6,
         opacity: 0,
-        ease: "sine.in",
+        ease: "sine.out",
         duration: 5,
+        delay: 1,
       });
     });
-  }
-
-  // Initial run
-  setupAnimation(mm.matches);
-
-  // Re-run when screen size changes
-  mm.addEventListener("change", (e) => {
-    setupAnimation(e.matches);
-    ScrollTrigger.refresh(); // Make sure ScrollTrigger recalculates positions
-  });
+  }, []);
 
   return (
     <div id="experience" className="bg-[#b8a4c9] px-5 pt-5 pb-10">

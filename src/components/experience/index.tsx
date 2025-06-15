@@ -13,24 +13,17 @@ const Experience = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
-
     const isMobile = window.matchMedia("(max-width: 767px)").matches;
-    const triggerStart = isMobile ? "top 90%" : "top 80%";
-    const scrollEnd = isMobile ? "+=1200" : "+=600";
-    const scrubValue = isMobile ? 1.5 : 1;
 
-    const cards = gsap.utils.toArray<HTMLElement>(".job-card");
+    if (!containerRef.current || isMobile) return;
 
-    const animations: gsap.core.Tween[] = [];
-
-    cards.forEach((card) => {
-      const tween = gsap.to(card, {
+    gsap.utils.toArray<HTMLElement>(".job-card").forEach((card) => {
+      gsap.to(card, {
         scrollTrigger: {
           trigger: card,
-          start: triggerStart,
-          end: scrollEnd,
-          scrub: scrubValue,
+          start: "top top",
+          end: "+=600",
+          scrub: 1,
           markers: true,
         },
         x: 10,
@@ -38,19 +31,9 @@ const Experience = () => {
         rotation: 15,
         scale: 0.6,
         opacity: 0,
-        ease: "none",
+        ease: "sine.out",
       });
-
-      animations.push(tween);
     });
-
-    // Cleanup on unmount
-    return () => {
-      animations.forEach((anim) => {
-        anim.scrollTrigger?.kill();
-        anim.kill();
-      });
-    };
   }, []);
 
   return (

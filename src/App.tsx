@@ -20,6 +20,9 @@ function App() {
       <Projects />
       <Experience />
       <Contact />
+      <div className="border-t-1 pt-1 mt-15 text-center text-sm z-10">
+        <p>Copyright &copy;{new Date().getFullYear()}</p>
+      </div>
     </div>
   );
 }

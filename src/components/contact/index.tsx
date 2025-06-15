@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { HandMetal } from "lucide-react";
-// import ContactBg from "../../assets/contact-bg.svg";
+// import ContactBg from "../../assets/contact-bg.svg?react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -44,8 +44,9 @@ const Contact = () => {
   }, []);
 
   return (
-    <div id="contact" className="relative py-10 px-4">
-      <Card className="sm:max-w-3/5 m-auto">
+    <div id="contact" className="relative py-10">
+      {/* <ContactBg className="absolute z-[0] top-0 left-0 w-full h-full" /> */}
+      <Card className="mx-5 sm:max-w-3/5 sm:m-auto z-2">
         <CardHeader>
           <CardTitle
             ref={titleRef}
@@ -59,9 +60,6 @@ const Contact = () => {
           <ContactForm />
         </CardContent>
       </Card>
-      <div className="border-t-1 pt-1 mt-15 text-center text-sm">
-        <p>Copyright &copy;{new Date().getFullYear()}</p>
-      </div>
     </div>
   );
 };

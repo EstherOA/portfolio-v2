@@ -20,8 +20,8 @@ const Experience = () => {
         scrollTrigger: {
           trigger: card,
           start: "top top",
-          end: "bottom top",
-          scrub: true,
+          end: "+=1000",
+          scrub: 1,
         },
         x: 10,
         y: -10,

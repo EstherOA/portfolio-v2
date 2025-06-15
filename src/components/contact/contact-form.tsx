@@ -155,7 +155,7 @@ const ContactForm = () => {
           )}
         />
         <Button
-          className="w-fit rounded-none! bg-[#2D2D2D] w-[150px] h-[50px]"
+          className="w-fit rounded-none! hover:shadow-lg hover:bg-zinc-800! w-[150px] h-[50px] transition-all duration-300"
           type="button"
           disabled={loading}
           onClick={handleSubmit}

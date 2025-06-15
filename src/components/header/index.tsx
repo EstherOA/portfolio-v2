@@ -80,7 +80,7 @@ const Header = () => {
             {"because life imitates art :)"}
           </p>
           <Button
-            className="mt-2 sm:mt-10 w-fit align-baseline rounded-none! bg-[#1A1A1A]! hover:bg-[#252525]! w-[150px] h-[60px] sm:w-[15em] sm:h-[5em] transition-all duration-300 hover:scale-105 hover:shadow-lg hover:animate-wiggle"
+            className="mt-2 sm:mt-10 w-fit align-baseline rounded-none! hover:bg-zinc-800! w-[150px] h-[60px] sm:w-[15em] sm:h-[5em] transition-all duration-300 hover:scale-105 hover:shadow-lg hover:animate-wiggle"
             variant="default"
           >
             Let's chat!

@@ -22,9 +22,8 @@ const Experience = () => {
         scrollTrigger: {
           trigger: card,
           start: "top top",
-          end: "+=600",
+          end: "bottom top",
           scrub: 1,
-          markers: true,
         },
         x: 10,
         y: -10,

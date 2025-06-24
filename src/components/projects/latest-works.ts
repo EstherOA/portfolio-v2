@@ -27,7 +27,7 @@ const projectList: ProjectType[] = [
   {
     title: "Bitfinity Wallet Extension",
     description:
-      "This is a fully featured Crypto wallet browser extension with BTC, ICP and ETH integration that allows users to manage tokens and NFTs, perform transactions (Associated with Finity Technologies)",
+      "This is a fully featured Crypto wallet browser extension with BTC, ICP and ETH integration that allows users to manage crypto tokens and NFTs and perform transactions (Associated with Finity Technologies)",
     img: BitfinityWallet,
     demo: "https://chromewebstore.google.com/detail/bitfinity-wallet/jnldfbidonfeldmalbflbmlebbipcnle?pli=1",
     repo: "#",
@@ -45,7 +45,7 @@ const projectList: ProjectType[] = [
   {
     title: "National Communications Authority (NCA) Website",
     description:
-      "This is a website for NCA featuring a blogs, event tracker and document repository built with Wordpress (Associated with Omni Strategies)",
+      "This is a website for NCA featuring a blog, event tracker and document repository built with Wordpress (Associated with Omni Strategies)",
     img: NCA,
     demo: "https://nca.org.gh/",
     repo: "#",
@@ -63,7 +63,7 @@ const projectList: ProjectType[] = [
   {
     title: "Rent Helper",
     description:
-      "This is a property management application that enables tenants and landlords to manage rentals built using React with a chat feature for easy communication (Associated with Best Adapted)",
+      "This is a property management application that enables tenants and landlords to manage rentals built using React with a chat feature and blog for easy communication and SEO (Associated with Best Adapted)",
     img: RentHelper,
     demo: "https://renthelper.co.uk/",
     repo: "#",
